@@ -1,0 +1,47 @@
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #fdf6e3, #f5deb3);
+    color: #2c1810;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.top-bar {
+    background-color: rgba(51, 33, 18, 0.85);
+    color: #fff8e1;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.top-bar h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.top-bar .tagline {
+    margin: 0.25rem 0 0;
+    opacity: 0.85;
+}
+
+main {
+    flex: 1;
+    padding: 2rem clamp(1rem, 3vw, 4rem);
+}
+
+footer {
+    padding: 1rem 2rem;
+    background-color: rgba(51, 33, 18, 0.7);
+    color: #f0e6d2;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .top-bar h1 {
+        font-size: 1.6rem;
+    }
+
+    main {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,98 @@
+@page "/"
+
+<PageTitle>Coin Snapper</PageTitle>
+
+<section class="camera-intro">
+    <h1>Münzaufnahme</h1>
+    <p>
+        Verwende die Kamera deines Geräts, um schnell eine Münze aufzunehmen.
+        Die Aufnahme wird lokal im Browser gespeichert, sodass sie auch offline
+        verfügbar bleibt.
+    </p>
+</section>
+
+<div class="camera-actions">
+    <InputFile OnChange="HandleImage" accept="image/*" Capture="environment" />
+    <button class="btn-clear" @onclick="ClearPhoto" disabled="@(_photoDataUrl is null)">
+        Aufnahme zurücksetzen
+    </button>
+</div>
+
+@if (!string.IsNullOrEmpty(_statusMessage))
+{
+    <p class="status-message">@_statusMessage</p>
+}
+
+@if (_photoDataUrl is not null)
+{
+    <section class="preview">
+        <h2>Gespeicherte Münze</h2>
+        <img src="@_photoDataUrl" alt="Aufgenommene Münze" />
+        <p class="hint">Die Aufnahme wird sicher im lokalen Speicher abgelegt.</p>
+    </section>
+}
+else
+{
+    <section class="preview placeholder">
+        <h2>Noch keine Aufnahme</h2>
+        <p>Nimm eine Münze auf, um hier eine Vorschau zu sehen.</p>
+    </section>
+}
+
+<section class="usage-tips">
+    <h2>Tipps für scharfe Aufnahmen</h2>
+    <ul>
+        <li>Platziere die Münze auf einem kontrastreichen Hintergrund.</li>
+        <li>Halte das Gerät ruhig oder verwende eine Auflage.</li>
+        <li>Nutze bei Bedarf die Taschenlampe deines Geräts für gleichmäßiges Licht.</li>
+    </ul>
+</section>
+
+@code {
+    private const long MaxFileSize = 5 * 1024 * 1024; // 5 MB
+    private string? _photoDataUrl;
+    private string? _statusMessage;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _photoDataUrl = await JSRuntime.InvokeAsync<string?>("ncsCamera.loadPhoto");
+        if (_photoDataUrl is not null)
+        {
+            _statusMessage = "Eine zuvor gespeicherte Aufnahme wurde geladen.";
+        }
+    }
+
+    private async Task HandleImage(InputFileChangeEventArgs args)
+    {
+        var file = args.File;
+        if (file is null)
+        {
+            _statusMessage = "Es wurde keine Datei ausgewählt.";
+            return;
+        }
+
+        if (file.Size > MaxFileSize)
+        {
+            _statusMessage = "Die Aufnahme ist zu groß. Bitte wähle eine Datei unter 5 MB.";
+            return;
+        }
+
+        await using var stream = file.OpenReadStream(MaxFileSize);
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        var base64 = Convert.ToBase64String(memoryStream.ToArray());
+        _photoDataUrl = $"data:{file.ContentType};base64,{base64}";
+        await JSRuntime.InvokeVoidAsync("ncsCamera.savePhoto", _photoDataUrl);
+        _statusMessage = $"Aufnahme gespeichert ({file.Name}).";
+    }
+
+    private async Task ClearPhoto()
+    {
+        await JSRuntime.InvokeVoidAsync("ncsCamera.clearPhoto");
+        _photoDataUrl = null;
+        _statusMessage = "Die Aufnahme wurde entfernt.";
+    }
+}

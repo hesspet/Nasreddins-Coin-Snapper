@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCS-TEST1", "NCS-TEST1\\NCS-TEST1.csproj", "{0ED406FE-1485-4993-8340-05AA88F7E6EE}"
+EndProject
+Global
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {0ED406FE-1485-4993-8340-05AA88F7E6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {0ED406FE-1485-4993-8340-05AA88F7E6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {0ED406FE-1485-4993-8340-05AA88F7E6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {0ED406FE-1485-4993-8340-05AA88F7E6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(ExtensibilityGlobals) = postSolution
+        SolutionGuid = {86370870-0FB2-4B75-ACCA-C3FB134D964F}
+    EndGlobalSection
+EndGlobal
