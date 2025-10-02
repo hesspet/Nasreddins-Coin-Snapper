@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nasreddin's Coin Snapper</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#c77d2a" />
+    <link rel="icon" type="image/svg+xml" href="icons/icon-192.svg" />
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+    <div id="app">Wird geladen...</div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/cameraStorage.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
+</body>
+</html>
