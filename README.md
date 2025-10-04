@@ -24,6 +24,6 @@ Eine progressive Web-App auf Basis von Blazor WebAssembly zum Aufnehmen und Spei
    dotnet run --project NCS-TEST1/NCS-TEST1.csproj
    ```
 
-3. Die Anwendung ist anschließend unter `https://localhost:5001` bzw. `http://localhost:5000` erreichbar.
+3. Die Anwendung ist anschließend unter `https://localhost:5001` bzw. `http://localhost:5000` erreichbar. Für den Zugriff anderer Geräte im selben Intranet stellt der Entwicklungsserver die Anwendung zusätzlich unter `https://<HOST-IP>:5001` bzw. `http://<HOST-IP>:5000` bereit.
 
 Für die PWA-Funktionen (Installierbarkeit, Offline-Nutzung) sollte die App über HTTPS ausgeliefert werden.
